@@ -1,0 +1,11 @@
+.page-wrapper {
+    max-width: 916px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 100%;
+    width: 100%;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+}

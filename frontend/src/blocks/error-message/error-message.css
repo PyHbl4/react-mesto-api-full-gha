@@ -1,0 +1,12 @@
+.error-message {
+    color: red;
+    display: block;
+    transition: all .5s;
+    opacity: 0;
+    visibility: hidden;
+    font-size: 12px;
+    line-height: 1;
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+}

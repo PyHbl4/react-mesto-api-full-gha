@@ -1,0 +1,20 @@
+.element__delete-button {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 18px;
+    height: 19px;
+    background-color: transparent;
+    border: none;
+    top: 20px;
+    right: 20px;
+    padding: 0;
+    cursor: pointer;
+    transition: all .4s;
+}
+
+.element__delete-button:hover {
+    transform: scale(1.1);
+    opacity: .6;
+}

@@ -1,0 +1,8 @@
+body {
+    background-color: black;
+    font-weight: 400;
+    position: relative;
+    z-index: 1;
+    font-family: 'Inter', sans-serif, Arial;
+    color: #FFF;
+}

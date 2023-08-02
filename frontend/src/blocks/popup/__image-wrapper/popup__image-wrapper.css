@@ -1,0 +1,17 @@
+.popup__image-wrapper {
+    position: relative;
+    max-height: 90vh;
+    max-width: 90vw;
+}
+
+@media screen and (max-width: 968px) {
+    .popup__image-wrapper {
+        max-width: calc(100% - 100px);
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .popup__image-wrapper {
+        max-width: calc(100% - 40px);
+    }
+}

@@ -1,0 +1,14 @@
+.form__label {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.form__label:last-of-type {
+    margin-bottom: 48px;
+}
+
+@media screen and (max-width: 650px) {
+    .form__label:last-of-type {
+        margin-bottom: 45px;
+    }
+}

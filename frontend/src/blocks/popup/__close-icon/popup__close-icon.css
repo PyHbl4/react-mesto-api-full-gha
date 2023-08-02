@@ -1,0 +1,16 @@
+.popup__close-icon {
+    
+    transition: opacity .4s;
+}
+
+.popup__close-icon:hover {
+    opacity: .6;
+}
+
+@media screen and (max-width: 650px) {
+    .popup__close-icon {
+        left: auto;
+        right: 0;
+        width: 20px;
+    }
+}

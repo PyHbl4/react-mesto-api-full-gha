@@ -1,0 +1,7 @@
+.header__user-info {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 24px;
+    line-height: 1;
+}

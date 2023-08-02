@@ -1,0 +1,25 @@
+.submit-button {
+    outline: none;
+    font-weight: 400;
+    width: 100%;
+    font-size: 18px;
+    line-height: 1.2;
+    text-align: center;
+    color: #FFFFFF;
+    background-color: #000;
+    border: none;
+    height: 50px;
+    border-radius: 2px;
+    transition: all .4s;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    opacity: .8;
+}
+@media screen and (max-width: 450px) {
+    .submit-button {
+        height: 46px;
+        font-size: 14px;
+    }
+}

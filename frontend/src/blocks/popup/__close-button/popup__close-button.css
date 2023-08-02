@@ -1,0 +1,20 @@
+.popup__close-button {
+    position: absolute;
+    left: calc(100% + 8px);
+    bottom: calc(100% + 8px);
+    cursor: pointer;
+    font-size: 0;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+@media screen and (max-width: 650px) {
+    .popup__close-button {
+        left: auto;
+        right: 0;
+        width: 20px;
+        bottom: calc(100% + 17px);
+    }
+}

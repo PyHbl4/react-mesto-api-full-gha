@@ -1,0 +1,8 @@
+.header__logout-button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #A9A9A9;
+    line-height: 1;
+    cursor: pointer;
+}
