@@ -1,3 +1,4 @@
+import React from 'react';
 import closeIcon from '../images/close_icon.svg';
 import okayImage from '../images/auth_ok.svg';
 import fallImage from '../images/auth_false.svg';
