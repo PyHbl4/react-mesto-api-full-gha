@@ -158,6 +158,7 @@ function App() {
     }
   }
   function handleRegister(options) {
+    console.log(options);
     authApiClass.registerUserRequest(options)
       .then(() => {
         handleLogin(options);

@@ -5,7 +5,6 @@ class AuthApi {
         this._apiUrl = options.baseUrl;
         this._authUrl = options.authUrl;
         this._registerUrl = options.registerUrl;
-        this._checkUrl = options.checkUrl;
     }
 
     _checkResponse(res) {
@@ -31,7 +30,7 @@ class AuthApi {
     }
 
     checkAuthorization(token) {
-        return fetch(`${this._apiUrl}${this._checkUrl}`, {
+        return fetch(`${this._apiUrl}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
