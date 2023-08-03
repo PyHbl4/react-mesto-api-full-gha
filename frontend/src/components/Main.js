@@ -9,6 +9,9 @@ import { CardsContext } from '../contexts/CardsContext.js';
 function Main(props) {
     const currentUser = React.useContext(CurrentUserContext);
     const cards = React.useContext(CardsContext);
+    console.log(currentUser);
+    console.log(cards);
+
     return (
         <main>
             <section className="profile">

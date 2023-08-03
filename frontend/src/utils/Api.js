@@ -17,13 +17,10 @@ class Api {
     }
 
     _getApiData(requestUrl) {
-        return fetch(requestUrl, {
-            headers: {
-                authorization: this._token,
-            }
-        })
+        return fetch(requestUrl)
             .then(this._checkResponse)
             .then((result) => {
+                console.log(result)
                 return result;
             });
     }
@@ -32,7 +29,6 @@ class Api {
         return fetch(requestUrl, {
             method: method,
             headers: {
-                authorization: this._token,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(options)

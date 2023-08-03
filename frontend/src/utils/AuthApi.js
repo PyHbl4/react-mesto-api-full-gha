@@ -4,6 +4,7 @@ class AuthApi {
     constructor(options) {
         this._apiUrl = options.baseUrl;
         this._authUrl = options.authUrl;
+        this._pathToMyCard = options.pathToMyCard;
         this._registerUrl = options.registerUrl;
     }
 
@@ -30,7 +31,7 @@ class AuthApi {
     }
 
     checkAuthorization(token) {
-        return fetch(`${this._apiUrl}`, {
+        return fetch(`${this._apiUrl}${this._pathToMyCard}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

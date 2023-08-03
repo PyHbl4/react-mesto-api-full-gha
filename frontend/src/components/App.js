@@ -16,13 +16,14 @@ import InfoTooltip from './InfoTooltip.js'
 import { Route, Routes } from "react-router-dom";
 import { authApiClass } from '../utils/AuthApi';
 import ProtectedRouteElement from "./ProtectedRoute";
+
 const userRequest = apiClass.getUserInfo()
   .then((data) => {
     return data;
   })
   .catch((err) => {
     console.log(`Ошибка запроса данных пользователя: ${err}`);
-  })
+  });
 const userData = Promise.resolve(userRequest);
 const cardsRequest = apiClass.getInitialCards()
   .then((data) => {
@@ -30,26 +31,29 @@ const cardsRequest = apiClass.getInitialCards()
   })
   .catch((err) => {
     console.log(`Ошибка запроса данных карточек: ${err}`);
-  })
+  });
 const initialRequest = Promise.resolve(cardsRequest);
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
-  const [currentUser, setCurrentUser] = useState(userData.then((result) => { return result }).catch(() => {return {
-    "name": "Изя",
-    "about": "Шнипперсон",
-    "avatar": "https://oir.mobi/uploads/posts/2020-01/1578161586_1-2.jpg",
-    "_id": "a29965ee4a6c3634590e40bc",
-    "cohort": "cohort-64"
-};}));
+  const [currentUser, setCurrentUser] = useState(userData.then((result) => { return result }).catch(() => {
+    return {
+      "name": "Изя",
+      "about": "Шнипперсон",
+      "avatar": "https://oir.mobi/uploads/posts/2020-01/1578161586_1-2.jpg",
+      "_id": "a29965ee4a6c3634590e40bc",
+      "cohort": "cohort-64"
+    };
+  }));
   const [userEmail, setUserEmail] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
   const [isInfoPopupOpened, setIsInfoPopupOpened] = useState(false);
   const [isAuthOkay, setIsAuthOkay] = useState(false);
   const [cards, setCards] = React.useState([]);
-  React.useEffect(() => {
+  useEffect(() => {
+    checkToken();
     initialRequest
       .then((cards) => {
         setCards(cards);
@@ -57,15 +61,15 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [loggedIn]);
   useEffect(() => {
+    checkToken();
     userData.then((result) => {
       setCurrentUser(result);
     })
-    .catch((err) => {
-      console.log(err);
-    })
-    checkToken();
+      .catch((err) => {
+        console.log(err);
+      })
   }, []);
 
   function handleEditAvatarClick() {
@@ -92,9 +96,9 @@ function App() {
     apiClass.toggleLike(card._id, isLiked ? 'DELETE' : 'PUT').then((newCard) => {
       setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
     })
-    .catch((err) => {
-      console.log(err);
-    });
+      .catch((err) => {
+        console.log(err);
+      });
   }
   function handleCardDelete(card) {
 
@@ -103,9 +107,9 @@ function App() {
         setCards((state) => state.filter((c) => c._id !== card._id));
       }
     })
-    .catch((err) => {
-      console.log(err);
-    });
+      .catch((err) => {
+        console.log(err);
+      });
   }
   function handleUpdateUser(options) {
     apiClass.setUserInfo(options)
@@ -140,11 +144,13 @@ function App() {
 
   //регистрация-авторизация
   function checkToken() {
-    const jwt = localStorage.getItem('jwt')
+    const jwt = localStorage.getItem('jwt');
     if (jwt) {
       authApiClass.checkAuthorization(jwt)
         .then((result) => {
           setUserEmail(result.data.email);
+          setCurrentUser(result.data);
+          setCards(cards);
           setLoggedIn(true);
         })
         .catch((err) => {
@@ -158,7 +164,6 @@ function App() {
     }
   }
   function handleRegister(options) {
-    console.log(options);
     authApiClass.registerUserRequest(options)
       .then(() => {
         handleLogin(options);
@@ -196,7 +201,7 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
 
       <div className="page-wrapper">
-        <Header loggedIn={loggedIn} userEmail={userEmail} onLogout={handleLogout}/>
+        <Header loggedIn={loggedIn} userEmail={userEmail} onLogout={handleLogout} />
         <CardsContext.Provider value={cards}>
           <Routes>
             <Route path='/' element={<ProtectedRouteElement element={Main}
@@ -231,8 +236,8 @@ function App() {
         onClose={closeAllPopups} />
       <InfoTooltip
         isOpen={isInfoPopupOpened}
-        isOkay={isAuthOkay} 
-        onClose={closeAllPopups}/>
+        isOkay={isAuthOkay}
+        onClose={closeAllPopups} />
     </CurrentUserContext.Provider>
   );
 }

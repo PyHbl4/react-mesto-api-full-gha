@@ -109,7 +109,7 @@ module.exports.getCurrentUser = (req, res, next) => {
 
 module.exports.updateAvatar = (req, res, next) => {
   User.findByIdAndUpdate(
-    req.user._id,
+    req.body._id,
     { avatar: req.body.avatar },
     { new: true, runValidators: true },
   )

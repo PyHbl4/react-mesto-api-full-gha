@@ -1,13 +1,15 @@
 export const initialInfo = {
-    apiUrl: 'https://api.maxim-runkov.nomoreparties.co',
-    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGNiNzQ0ZWNiNWIzNjNkMGNmNGUxYTgiLCJpYXQiOjE2OTEwNTYwMzMsImV4cCI6MTY5MTY2MDgzM30.6cA9gPPGGJpriBRhLF4zoapQcNWDsiR3yMrzPATlPWM',
+    // apiUrl: 'http://api.maxim-runkov.nomoreparties.co',
+    apiUrl: 'http://127.0.0.1:3000',
     pathToCards: '/cards',
     pathToMyCard: '/users/me',
     pathToMyAvatar: '/avatar'
 };
 export const authApiInfo = {
-    baseUrl: 'https://api.maxim-runkov.nomoreparties.co',
+    // baseUrl: 'http://api.maxim-runkov.nomoreparties.co',
+    baseUrl: 'http://127.0.0.1:3000',
     authUrl: '/signin',
+    pathToMyCard: '/users/me',
     registerUrl: '/signup',
     checkUrl: ''
 }
