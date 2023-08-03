@@ -1,13 +1,13 @@
 export const initialInfo = {
-    apiUrl: 'https://mesto.nomoreparties.co/v1',
-    cohort: '/cohort-64',
-    token: 'a7c3f1ef-90a8-4cfe-beac-9f368d375108',
+    apiUrl: 'https://api.maxim-runkov.nomoreparties.co',
+    cohort: '',
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGNiNzQ0ZWNiNWIzNjNkMGNmNGUxYTgiLCJpYXQiOjE2OTEwNTYwMzMsImV4cCI6MTY5MTY2MDgzM30.6cA9gPPGGJpriBRhLF4zoapQcNWDsiR3yMrzPATlPWM',
     pathToCards: '/cards',
     pathToMyCard: '/users/me',
     pathToMyAvatar: '/avatar'
 };
 export const authApiInfo = {
-    baseUrl: 'https://auth.nomoreparties.co',
+    baseUrl: 'https://api.maxim-runkov.nomoreparties.co',
     authUrl: '/signin',
     registerUrl: '/signup',
     checkUrl: '/users/me'

@@ -2,7 +2,6 @@ import { initialInfo } from "./constants.js";
 class Api {
     constructor(options) {
         this._apiUrl = options.apiUrl;
-        this._cohort = options.cohort;
         this._token = options.token;
         this._pathToCards = options.pathToCards;
         this._pathToMyCard = options.pathToMyCard;
@@ -45,27 +44,27 @@ class Api {
     }
 
     getInitialCards() {
-        return this._getApiData(`${this._apiUrl}${this._cohort}${this._pathToCards}`);
+        return this._getApiData(`${this._apiUrl}${this._pathToCards}`);
     }
 
     getUserInfo() {
-        return this._getApiData(`${this._apiUrl}${this._cohort}${this._pathToMyCard}`);
+        return this._getApiData(`${this._apiUrl}${this._pathToMyCard}`);
     }
 
     setUserInfo(options) {
-        return this._setApiData(`${this._apiUrl}${this._cohort}${this._pathToMyCard}`, options, 'PATCH');
+        return this._setApiData(`${this._apiUrl}${this._pathToMyCard}`, options, 'PATCH');
     }
 
     setNewCard(options) {
-        return this._setApiData(`${this._apiUrl}${this._cohort}${this._pathToCards}`, options, 'POST');
+        return this._setApiData(`${this._apiUrl}${this._pathToCards}`, options, 'POST');
     }
 
     changeAvatar(options) {
-        return this._setApiData(`${this._apiUrl}${this._cohort}${this._pathToMyCard}${this._pathToMyAvatar}`, options, 'PATCH');
+        return this._setApiData(`${this._apiUrl}${this._pathToMyCard}${this._pathToMyAvatar}`, options, 'PATCH');
     }
 
     deleteCard(cardId) {
-        return fetch(`${this._apiUrl}${this._cohort}${this._pathToCards}/${cardId}`, {
+        return fetch(`${this._apiUrl}${this._pathToCards}/${cardId}`, {
             method: 'DELETE',
             headers: {
                 authorization: this._token,
@@ -79,7 +78,7 @@ class Api {
 
 
     toggleLike(id, method) {
-        return fetch(`https://mesto.nomoreparties.co/v1/${this._cohort}${this._pathToCards}/${id}/likes`, {
+        return fetch(`https://mesto.nomoreparties.co/v1/${this._pathToCards}/${id}/likes`, {
             method: method,
             headers: {
                 authorization: this._token
