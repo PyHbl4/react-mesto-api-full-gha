@@ -9,9 +9,6 @@ import { CardsContext } from '../contexts/CardsContext.js';
 function Main(props) {
     const currentUser = React.useContext(CurrentUserContext);
     const cards = React.useContext(CardsContext);
-    console.log(currentUser);
-    console.log(cards);
-
     return (
         <main>
             <section className="profile">
@@ -33,9 +30,9 @@ function Main(props) {
                 </button>
             </section>
             <ul className="elements" id="elements-container">
-                {cards.map((card) => (
+                {cards ? cards.map((card) => (
                     <Card key={card._id} id={card.id} link={card.link} name={card.name} owner={card.owner} likes={card.likes} handleCardClick={props.onCardClick} handleLikeClick={props.onCardLike} card={card} handleDeleteClick={props.onCardDelete}/>
-                ))}
+                )) : ''}
             </ul>
         </main>
     )

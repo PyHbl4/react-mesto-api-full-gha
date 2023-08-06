@@ -17,59 +17,42 @@ import { Route, Routes } from "react-router-dom";
 import { authApiClass } from '../utils/AuthApi';
 import ProtectedRouteElement from "./ProtectedRoute";
 
-const userRequest = apiClass.getUserInfo()
-  .then((data) => {
-    return data;
-  })
-  .catch((err) => {
-    console.log(`Ошибка запроса данных пользователя: ${err}`);
-  });
-const userData = Promise.resolve(userRequest);
-const cardsRequest = apiClass.getInitialCards()
-  .then((data) => {
-    return data;
-  })
-  .catch((err) => {
-    console.log(`Ошибка запроса данных карточек: ${err}`);
-  });
-const initialRequest = Promise.resolve(cardsRequest);
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
-  const [currentUser, setCurrentUser] = useState(userData.then((result) => { return result }).catch(() => {
-    return {
-      "name": "Изя",
-      "about": "Шнипперсон",
-      "avatar": "https://oir.mobi/uploads/posts/2020-01/1578161586_1-2.jpg",
-      "_id": "a29965ee4a6c3634590e40bc",
-      "cohort": "cohort-64"
-    };
-  }));
+  const [currentUser, setCurrentUser] = useState({
+    "name": "Изя",
+    "about": "Шнипперсон",
+    "avatar": "https://oir.mobi/uploads/posts/2020-01/1578161586_1-2.jpg",
+    "_id": "a29965ee4a6c3634590e40bc",
+  });
+  const [cards, setCards] = React.useState([]);
   const [userEmail, setUserEmail] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
   const [isInfoPopupOpened, setIsInfoPopupOpened] = useState(false);
   const [isAuthOkay, setIsAuthOkay] = useState(false);
-  const [cards, setCards] = React.useState([]);
   useEffect(() => {
-    checkToken();
-    initialRequest
-      .then((cards) => {
-        setCards(cards);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (loggedIn) {
+      Promise.resolve(apiClass.getInitialCards())
+        .then((cardsData) => {
+          setCards(cardsData.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+      Promise.resolve(apiClass.getUserInfo())
+        .then((userData) => {
+          setCurrentUser(userData.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
   }, [loggedIn]);
   useEffect(() => {
     checkToken();
-    userData.then((result) => {
-      setCurrentUser(result);
-    })
-      .catch((err) => {
-        console.log(err);
-      })
   }, []);
 
   function handleEditAvatarClick() {
@@ -92,9 +75,9 @@ function App() {
     setSelectedCard(null);
   }
   function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(i => i === currentUser._id);
     apiClass.toggleLike(card._id, isLiked ? 'DELETE' : 'PUT').then((newCard) => {
-      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      setCards((state) => state.map((c) => c._id === card._id ? newCard.data : c));
     })
       .catch((err) => {
         console.log(err);
@@ -114,7 +97,7 @@ function App() {
   function handleUpdateUser(options) {
     apiClass.setUserInfo(options)
       .then((result) => {
-        setCurrentUser(result);
+        setCurrentUser(result.data);
         closeAllPopups();
       })
       .catch((err) => {
@@ -124,7 +107,7 @@ function App() {
   function handleUpdateAvatar(options) {
     apiClass.changeAvatar(options)
       .then((result) => {
-        setCurrentUser(result);
+        setCurrentUser(result.data);
         closeAllPopups();
       })
       .catch((err) => {
@@ -134,7 +117,7 @@ function App() {
   function handleAddPlace(options) {
     apiClass.setNewCard(options)
       .then((newCard) => {
-        setCards([newCard, ...cards]);
+        setCards([newCard.data, ...cards]);
         closeAllPopups();
       })
       .catch((err) => {
@@ -149,8 +132,6 @@ function App() {
       authApiClass.checkAuthorization(jwt)
         .then((result) => {
           setUserEmail(result.data.email);
-          setCurrentUser(result.data);
-          setCards(cards);
           setLoggedIn(true);
         })
         .catch((err) => {

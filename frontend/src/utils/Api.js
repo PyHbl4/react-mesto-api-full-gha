@@ -17,19 +17,25 @@ class Api {
     }
 
     _getApiData(requestUrl) {
-        return fetch(requestUrl)
+        const jwt = localStorage.getItem('jwt');
+        return fetch(requestUrl, {
+            headers: {
+                'Authorization': `Bearer ${jwt}`
+            },
+        })
             .then(this._checkResponse)
             .then((result) => {
-                console.log(result)
                 return result;
             });
     }
 
     _setApiData(requestUrl, options, method) {
+        const jwt = localStorage.getItem('jwt');
         return fetch(requestUrl, {
             method: method,
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwt}`
             },
             body: JSON.stringify(options)
         })
@@ -60,10 +66,11 @@ class Api {
     }
 
     deleteCard(cardId) {
+        const jwt = localStorage.getItem('jwt');
         return fetch(`${this._apiUrl}${this._pathToCards}/${cardId}`, {
             method: 'DELETE',
             headers: {
-                authorization: this._token,
+                authorization: `Bearer ${jwt}`
             }
         })
             .then(this._checkResponse)
@@ -74,10 +81,11 @@ class Api {
 
 
     toggleLike(id, method) {
-        return fetch(`https://mesto.nomoreparties.co/v1/${this._pathToCards}/${id}/likes`, {
+        const jwt = localStorage.getItem('jwt');
+        return fetch(`${this._apiUrl}${this._pathToCards}/${id}/likes`, {
             method: method,
             headers: {
-                authorization: this._token
+                authorization: `Bearer ${jwt}`
             }
         })
             .then(this._checkResponse)

@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const {
@@ -11,7 +12,6 @@ const NotFoundError = require('./errors/not-found-error');
 const errorHandler = require('./middlewares/error-handler');
 const { signupValidation, signinValidation } = require('./middlewares/validation');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const cors = require('cors');
 
 const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
 const app = express();

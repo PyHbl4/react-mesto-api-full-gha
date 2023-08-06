@@ -19,7 +19,10 @@ module.exports.createCard = (req, res, next) => {
 
 module.exports.getCards = (req, res, next) => {
   Card.find({})
-    .then((cards) => res.send({ data: cards }))
+    .then((cards) => {
+      cards.sort((a, b) => b.createdAt - a.createdAt);
+      res.send({ data: cards });
+    })
     .catch(() => next(new ServerError('Произошла ошибка на стороне сервера')));
 };
 

@@ -13,6 +13,7 @@ function EditAvatarPopup(props) {
             _id: currentUser._id,
             avatar: avatarRef.current.value
         });
+        e.target.reset();
     }
 
     return (
