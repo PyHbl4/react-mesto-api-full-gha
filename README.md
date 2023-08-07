@@ -9,7 +9,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 51.250.93.18
+IP-адрес 158.160.113.9
 
 Frontend https://maxim-runkov.nomoreparties.co
 
