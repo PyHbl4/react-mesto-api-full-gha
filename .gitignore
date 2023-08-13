@@ -18,7 +18,7 @@ node_modules
 /frontent/coverage
 
 # production
-/frontent/build
+frontent/build
 
 # Optional REPL history
 .DS_Store
