@@ -7,6 +7,8 @@ const AuthError = require('../errors/auth-error');
 const ServerError = require('../errors/internal-server-error');
 const NotFoundError = require('../errors/not-found-error');
 
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 module.exports.createUser = (req, res, next) => {
   const {
     name,
@@ -55,7 +57,7 @@ module.exports.login = (req, res, next) => {
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
-        'some-secret-key',
+        NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
         { expiresIn: '7d' },
       );
       res.send({ token });
