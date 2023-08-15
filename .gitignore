@@ -15,7 +15,7 @@ node_modules
 .npm
 
 # testing
-/frontent/coverage
+frontent/coverage
 
 # production
 frontent/build
